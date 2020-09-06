@@ -1,152 +1,495 @@
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-div.gallery {
-  border: 1px solid #ccc;
-}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- build:css css/index.css -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- endbuild -->
 
-div.gallery:hover {
-  border: 1px solid #777;
-}
+    <title>Dashboard Covid_19</title>
+  </head>
+  <body>
+   
+   <main role="main">
+   
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">Pronostico de la evolución de casos activos de SARS-CoV-2 en Colombia</li>
+        </ol>
+      </nav>
+        
+      <hr>
 
-div.gallery img {
-  width: 100%;
-  height: auto;
-}
+      <br>
+     
+	      <h1>Medellín</h1>
+	 
+      <hr>
 
-div.desc {
-  padding: 15px;
-  text-align: center;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.responsive {
-  padding: 0 6px;
-  float: left;
-  width: 24.99999%;
-}
-
-@media only screen and (max-width: 700px) {
-  .responsive {
-    width: 49.99999%;
-    margin: 6px 0;
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  .responsive {
-    width: 100%;
-  }
-}
-
-.clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-</style>
-</head>
-<body>
-
-    <center>
-        <h1>Pronostico de la evolución de casos activos de SARS-CoV-2 en Colombia</h1>
-    </center>
-	
-<div class="responsive">
-  <div class="gallery">
-    <a target="_blank" href="images/med_confirmados.png">
-      <img src="images/med_confirmados.png" alt="Cinque Terre" width="600" height="400">
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-
-
-<div class="responsive">
-  <div class="gallery">
-    <a target="_blank" href="images/med_confirmados.png">
-      <img src="images/Muertes_Barr.png" alt="Forest" width="600" height="400">
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-
-<div class="responsive">
-  <div class="gallery">
-    <a target="_blank" href="images/med_confirmados.png">
-      <img src="images/med_confirmados.png" alt="Northern Lights" width="600" height="400">
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-
-<div class="responsive">
-  <div class="gallery">
-    <a target="_blank" href="images/med_confirmados.png">
-      <img src="images/fig4.png" alt="Mountains" width="600" height="400">
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-
-
-<div class="responsive">
-  <div class="gallery">
-    <a target="_blank" href="images/med_confirmados.png">
-      <img src="images/med_confirmados.png" alt="Cinque Terre" width="600" height="400">
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-
-<div class="responsive">
-  <div class="gallery">
-    <a target="_blank" href="images/med_confirmados.png">
-      <img src="images/med_confirmados.png" alt="Cinque Terre" width="600" height="400">
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-
-<div class="responsive">
-  <div class="gallery">
-    <a target="_blank" href="images/med_confirmados.png">
-      <img src="images/med_confirmados.png" alt="Cinque Terre" width="600" height="400">
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-
-<div class="responsive">
-  <div class="gallery">
-    <a target="_blank" href="images/med_confirmados.png">
-      <img src="images/med_confirmados.png" alt="Cinque Terre" width="600" height="400">
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-
-<div class="responsive">
-  <div class="gallery">
-    <a target="_blank" href="images/med_confirmados.png">
-      <img src="images/med_confirmados.png" alt="Cinque Terre" width="600" height="400">
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
+        <div class="card-deck">
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+            <img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">Confirmados Medellín</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_crecimiento.png">
+			<img class="card-img-top" src="images\med_crecimiento.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">Crecimiento Casos Medellin</h5>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          
+		  <div class="card">
+            <a target="_blank" href="images\med_muertes.png">
+			<img class="card-img-top" src="images\med_muertes.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Muertos Medellin</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="card-deck">
+          <div class="card">
+            <a target="_blank" href="images\med_recuperados.png">
+            <img class="card-img-top" src="images\med_recuperados.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Recuperados Medellín</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+            <img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Pendiente</h5>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+			<img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">pendiente</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
 
 
+<!-- Barranquilla -->
+
+      <hr>
+
+      <br>
+     
+	      <h1>Barranquilla</h1>
+	 
+      <hr>
+
+        <div class="card-deck">
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+            <img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">Confirmados Medellín</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_crecimiento.png">
+			<img class="card-img-top" src="images\med_crecimiento.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">Crecimiento Casos Medellin</h5>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          
+		  <div class="card">
+            <a target="_blank" href="images\med_muertes.png">
+			<img class="card-img-top" src="images\med_muertes.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Muertos Medellin</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="card-deck">
+          <div class="card">
+            <a target="_blank" href="images\med_recuperados.png">
+            <img class="card-img-top" src="images\med_recuperados.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Recuperados Medellín</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+            <img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Pendiente</h5>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+			<img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">pendiente</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
 
 
-<div class="clearfix"></div>
+<!-- Bogotá -->
 
-<div style="padding:6px;">
-  <p>El objetivo de este proyecto es la predicción de corto y mediano plazo de el total de casos confirmados, los nuevos casos, los casos activos, recuperados y muertes para las 5 principales ciudades de Colombia, utilizando técnicas estadísticas, de inteligencia artificial o modelos híbridos.</p>
-</div>
+      <hr>
 
-</body>
+      <br>
+     
+	      <h1>Bogotá</h1>
+	 
+      <hr>
+
+        <div class="card-deck">
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+            <img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">Confirmados Medellín</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_crecimiento.png">
+			<img class="card-img-top" src="images\med_crecimiento.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">Crecimiento Casos Medellin</h5>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          
+		  <div class="card">
+            <a target="_blank" href="images\med_muertes.png">
+			<img class="card-img-top" src="images\med_muertes.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Muertos Medellin</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="card-deck">
+          <div class="card">
+            <a target="_blank" href="images\med_recuperados.png">
+            <img class="card-img-top" src="images\med_recuperados.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Recuperados Medellín</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+            <img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Pendiente</h5>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+			<img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">pendiente</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+
+
+<!-- Cali -->
+
+
+      <hr>
+
+      <br>
+     
+      <hr>
+
+        <div class="card-deck">
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+            <img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">Confirmados Medellín</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_crecimiento.png">
+			<img class="card-img-top" src="images\med_crecimiento.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">Crecimiento Casos Medellin</h5>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          
+		  <div class="card">
+            <a target="_blank" href="images\med_muertes.png">
+			<img class="card-img-top" src="images\med_muertes.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Muertos Medellin</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="card-deck">
+          <div class="card">
+            <a target="_blank" href="images\med_recuperados.png">
+            <img class="card-img-top" src="images\med_recuperados.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Recuperados Medellín</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+            <img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Pendiente</h5>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+			<img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">pendiente</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+
+
+<!-- Cartagena -->
+
+
+      <hr>
+
+      <br>
+     
+      <hr>
+
+        <div class="card-deck">
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+            <img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">Confirmados Medellín</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_crecimiento.png">
+			<img class="card-img-top" src="images\med_crecimiento.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">Crecimiento Casos Medellin</h5>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          
+		  <div class="card">
+            <a target="_blank" href="images\med_muertes.png">
+			<img class="card-img-top" src="images\med_muertes.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Muertos Medellin</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="card-deck">
+          <div class="card">
+            <a target="_blank" href="images\med_recuperados.png">
+            <img class="card-img-top" src="images\med_recuperados.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Recuperados Medellín</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+            <img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Pendiente</h5>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+          <div class="card">
+            <a target="_blank" href="images\med_confirmados.png">
+			<img class="card-img-top" src="images\med_confirmados.png" alt="Card image cap">
+            </a>
+			<div class="card-body">
+              <h5 class="card-title">pendiente</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+    </div> <!-- /container --> 
+    
+    </main>
+    <hr>
+      <div class="card-body">
+        <h5>El objetivo de este proyecto es la predicción de corto y mediano plazo de el total de casos confirmados, los nuevos casos, los casos activos, recuperados y muertes para las 5 principales ciudades de Colombia, utilizando técnicas estadísticas, de inteligencia artificial o modelos híbridos.</h5> 
+      </div>
+    </div>
+
+  </footer>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+   
+
+  </body>
 </html>

@@ -364,6 +364,180 @@ pd.set_option('display.float_format', lambda x: '%.6f' % x)
 Predicciones_Barr=pd.DataFrame(zip(nuevo_dia,Prediccion_AR_Barr_Con,Prediccion_AR_Barr_recu,Prediccion_SARIMA_Barr_M ), columns=["Fechas","Modelo AR Confirmados","Modelo AR Recuperados", "Modelo SARIMA Muertes"])
 Predicciones_Barr.head()
 
+print("Número total de casos confirmados en Medellín: ",df_agrupado2_Med["Confirmados_acum"].iloc[-1])
+print("Número total de casos recuperados en Medellín: ",df_agrupado2_Med["Recuperados_acum"].iloc[-1])
+print("Número total de muertes en Medellín: ",df_agrupado2_Med["Muertos_acum"].iloc[-1])
+print("Número total de casos Activos en Medellín: ",df_agrupado2_Med["Activos_acum"].iloc[-1])
+print("Número aproximado de casos confirmados por día: ",np.round(df_agrupado2_Med["Confirmados_acum"].iloc[-1]/df_agrupado2_Med.shape[0]))
+print("Número aproximado de casos recuperados por día: ",np.round(df_agrupado2_Med["Recuperados_acum"].iloc[-1]/df_agrupado2_Med.shape[0]))
+print("Número aproximado de muertes por día: ",np.round(df_agrupado2_Med["Muertos_acum"].iloc[-1]/df_agrupado2_Med.shape[0]))
+print("Nuevos casos confirmados: ",df_agrupado2_Med["Confirmados_acum"].iloc[-1]-df_agrupado2_Med["Confirmados_acum"].iloc[-2])
+
+##Se grafica el comportamiento del crecimiento semanal por tipo de casos
+
+df_agrupado2_Med["Semana"]=df_agrupado2_Med.index.weekofyear
+
+semana_num=[]
+semana_confirmados=[]
+semana_recuperados=[]
+semana_muertos=[]
+w=1
+for i in list(df_agrupado2_Med["Semana"].unique()):
+    semana_confirmados.append(df_agrupado2_Med[df_agrupado2_Med["Semana"]==i]["Confirmados_acum"].iloc[-1])
+    semana_recuperados.append(df_agrupado2_Med[df_agrupado2_Med["Semana"]==i]["Recuperados_acum"].iloc[-1])
+    semana_muertos.append(df_agrupado2_Med[df_agrupado2_Med["Semana"]==i]["Muertos_acum"].iloc[-1])
+    semana_num.append(w)
+    w=w+1
+
+crecimiento=go.Figure()
+crecimiento.add_trace(go.Scatter(x=semana_num, y=semana_confirmados,
+                    mode='lines+markers',
+                    name='Crecimiento semanal casos confirmados'))
+crecimiento.add_trace(go.Scatter(x=semana_num, y=semana_recuperados,
+                    mode='lines+markers',
+                    name='Crecimiento semanal casos recuperados'))
+crecimiento.add_trace(go.Scatter(x=semana_num, y=semana_muertos,
+                    mode='lines+markers',
+                    name='Crecimiento semanal muertos'))
+crecimiento.update_layout(title="Crecimiento semanal por tipo de casos en Medellín",
+                 xaxis_title="Semana",yaxis_title="Número de casos",legend=dict(x=0,y=1,traceorder="normal"))
+crecimiento.write_image("images/crecimiento_med.png")
+
+##Se calcula las tasas de mortalidad y recuperación
+df_agrupado2_Med["Tasa de mortalidad"]=(df_agrupado2_Med["Muertos_acum"]/df_agrupado2_Med["Confirmados_acum"])*100
+df_agrupado2_Med["Tasa de recuperación"]=(df_agrupado2_Med["Recuperados_acum"]/df_agrupado2_Med["Confirmados_acum"])*100
+print("Tasa de mortalidad promedio",df_agrupado2_Med["Tasa de mortalidad"].mean())
+print("Tasa de recuperación promedio",df_agrupado2_Med["Tasa de recuperación"].mean())
+
+##Se grafica el comportamiento de las tasas
+Tasas = make_subplots(rows=2, cols=1,
+                   subplot_titles=("Tasa de recuperación", "Tasa de mortalidad"))
+Tasas.add_trace(
+    go.Scatter(x=df_agrupado2_Med.index, y=(df_agrupado2_Med["Recuperados_acum"]/df_agrupado2_Med["Confirmados_acum"])*100,name="Tasa de recuperación"),
+    row=1, col=1
+)
+Tasas.add_trace(
+    go.Scatter(x=df_agrupado2_Med.index, y=(df_agrupado2_Med["Muertos_acum"]/df_agrupado2_Med["Confirmados_acum"])*100,name="Tasa de mortalidad"),
+    row=2, col=1
+)
+Tasas.update_layout(height=1000,legend=dict(x=-0.1,y=1.2,traceorder="normal"))
+Tasas.update_xaxes(title_text="Fecha", row=1, col=1)
+Tasas.update_yaxes(title_text="tasa de recuperación", row=1, col=1)
+Tasas.update_xaxes(title_text="Fecha", row=1, col=2)
+Tasas.update_yaxes(title_text="Tasa de mortalidad", row=1, col=2)
+Tasas.show()
+
+##Se grafica el factor de crecimiento de los tipos de casos
+Factor_Crecimiento=go.Figure()
+Factor_Crecimiento.add_trace(go.Scatter(x=df_agrupado2_Med.index, y=df_agrupado2_Med["Confirmados"]/df_agrupado2_Med["Confirmados"].shift(),
+                    mode='lines',
+                    name='Factor de crecimiento casos confirmados'))
+Factor_Crecimiento.add_trace(go.Scatter(x=df_agrupado2_Med.index, y=df_agrupado2_Med["Recuperados"]/df_agrupado2_Med["Recuperados"].shift(),
+                    mode='lines',
+                    name='Factor de crecimiento casos recuperados'))
+Factor_Crecimiento.add_trace(go.Scatter(x=df_agrupado2_Med.index, y=df_agrupado2_Med["Muertos"]/df_agrupado2_Med["Muertos"].shift(),
+                    mode='lines',
+                    name='Factor de crecimiento muertes'))
+Factor_Crecimiento.update_layout(title="Factor de crecimiento casos confirmados, recuperados y muertes",
+                 xaxis_title="Fecha",yaxis_title="Factor de crecimiento",
+                 legend=dict(x=0,y=-0.4,traceorder="normal"))
+Factor_Crecimiento.write_image("images/Factor_Crecimiento_med.png")
+
+"""#Modelo de predicción AR para Medellín
+
+##Casos confirmados
+"""
+
+##Entrenamiento 
+model_train_Med_Con=df_agrupado2_Med.iloc[:int(df_agrupado2_Med.shape[0]*0.95)]
+valid_Med_Con=df_agrupado2_Med.iloc[int(df_agrupado2_Med.shape[0]*0.95):]
+y_pred_Med_Con=valid_Med_Con.copy()
+
+##Selección del modelo
+model_ar_Med_Con= auto_arima(model_train_Med_Con["Confirmados_acum"],trace=True, error_action='ignore', start_p=0,start_q=0,max_p=5,max_q=0,
+                   suppress_warnings=True,stepwise=False,seasonal=False)
+model_ar_Med_Con.fit(model_train_Med_Con["Confirmados_acum"])
+
+##Calculo predicción
+prediction_ar_Med_Con=model_ar_Med_Con.predict(len(valid_Med_Con))
+y_pred_Med_Con["AR Predicción"]=prediction_ar_Med_Con
+
+##Métrica RMSE
+model_scores_Med_Conf=[]
+model_scores_Med_Conf.append(np.sqrt(mean_squared_error(y_pred_Med_Con["Confirmados_acum"],y_pred_Med_Con["AR Predicción"])))
+print("RMSE para modelo AR: ",np.sqrt(mean_squared_error(y_pred_Med_Con["Confirmados_acum"],y_pred_Med_Con["AR Predicción"])))
+
+##Graficando el modelo para los confirmados
+Confirmados_Med=go.Figure()
+Confirmados_Med.add_trace(go.Scatter(x=model_train_Med_Con.index, y=model_train_Med_Con["Confirmados_acum"],
+                    mode='lines+markers',name="Datos de entrenamiento para casos confirmados"))
+Confirmados_Med.add_trace(go.Scatter(x=valid_Med_Con.index, y=valid_Med_Con["Confirmados_acum"],
+                    mode='lines+markers',name="Datos de Validación para casos confirmados",))
+Confirmados_Med.add_trace(go.Scatter(x=valid_Med_Con.index, y=y_pred_Med_Con["AR Predicción"],
+                    mode='lines+markers',name="Predicción de casos confirmados",))
+Confirmados_Med.update_layout(title="Predicción casos confirmados modelo AR",
+                 xaxis_title="Fecha",yaxis_title="Casos  confirmados",legend=dict(x=0,y=1,traceorder="normal"))
+Confirmados_Med.write_image("images/Confirmados_Med.png")
+
+#Crea datos de predicción a 30 días
+nuevo_dia=[]
+Prediccion_AR_Med_Con=[]
+for i in range(1,30):
+    nuevo_dia.append(df_agrupado2_Med.index[-1]+timedelta(days=i))
+    Prediccion_AR_Med_Con.append(model_ar_Med_Con.predict(len(valid_Med_Con)+i)[-1])
+
+"""##Casos recuperados"""
+
+##Se debe considerar que se observan retrasos en el reporte de casos al mostrar de forma consecutiva 0 recuperados y 0 muertes, teniendo en cuenta que aún hay casos activos en la región y que los casos no permanecen activos indefinidamente 
+##Entrenamiento
+model_train_Med_recu=df_agrupado2_Med.iloc[:int(df_agrupado2_Med.shape[0]*0.95)]
+valid_Med_recu=df_agrupado2_Med.iloc[int(df_agrupado2_Med.shape[0]*0.95):]
+y_pred_Med_recu=valid_Med_recu.copy()
+
+##Selección
+model_ar_Med_recu= auto_arima(model_train_Med_recu["Recuperados"],trace=True, error_action='ignore', start_p=0,start_q=0,max_p=7,max_q=0,
+                   suppress_warnings=True,stepwise=False,seasonal=False)
+model_ar_Med_recu.fit(model_train_Med_recu["Recuperados"])
+
+##Predicción
+prediction_ar_Med_recu=model_ar_Med_recu.predict(len(valid_Med_recu))
+y_pred_Med_recu["AR Predicción"]=prediction_ar_Med_recu
+
+#Métrica RMSE
+model_scores_Med_recu=[]
+model_scores_Med_recu.append(np.sqrt(mean_squared_error(y_pred_Med_recu["Recuperados"],y_pred_Med_recu["AR Predicción"])))
+print("RMSE para modelo AR: ",np.sqrt(mean_squared_error(y_pred_Med_recu["Recuperados"],y_pred_Med_recu["AR Predicción"])))
+
+##Graficando el modelo para los recuperados
+Recuperados_Med=go.Figure()
+Recuperados_Med.add_trace(go.Scatter(x=model_train_Med_recu.index, y=model_train_Med_recu["Recuperados"],
+                    mode='lines+markers',name="Datos de entrenamiento para casos recuperados"))
+Recuperados_Med.add_trace(go.Scatter(x=valid_Med_recu.index, y=valid_Med_recu["Recuperados"],
+                    mode='lines+markers',name="Datos de Validación para casos recuperados",))
+Recuperados_Med.add_trace(go.Scatter(x=valid_Med_recu.index, y=y_pred_Med_recu["AR Predicción"],
+                    mode='lines+markers',name="Predicción de casos recuperados",))
+Recuperados_Med.update_layout(title="Predicción casos recuperados modelo AR",
+                 xaxis_title="Fecha",yaxis_title="Casos  recuperados",legend=dict(x=0,y=1,traceorder="normal"))
+Recuperados_Med.write_image("images/Recuperados_Med.png")
+
+#Crea datos de predicción a 30 días
+Prediccion_AR_Med_recu=[]
+for i in range(1,30):
+    Prediccion_AR_Med_recu.append(model_ar_Med_recu.predict(len(valid_Med_recu)+i)[-1])
+
+"""##Muertes"""
+
+##Entrenamiento
+model_train_Med_M=df_agrupado2_Med.iloc[:int(df_agrupado2_Med.shape[0]*0.90)]
+valid_Med_M=df_agrupado2_Med.iloc[int(df_agrupado2_Med.shape[0]*0.90):]
+y_pred_Med_M=valid_Med_M.copy()
+
+##Selección
+model_sarima_Med_M= auto_arima(model_train_Med_M["Muertos"],trace=True, error_action='ignore', 
+                         start_p=0,start_q=0,max_p=2,max_q=2,m=9,
+                   suppress_warnings=True,stepwise=True,seasonal=True)
+model_sarima_Med_M.fit(model_train_Med_M["Muertos"])
+
 ##Predicciones 1ra semana
 Predicciones_Barr["Activos"]= Predicciones_Barr["Modelo AR Confirmados"]-Predicciones_Barr["Modelo AR Recuperados"]-Predicciones_Barr["Modelo SARIMA Muertes"]
 Predicciones_Barr["Nuevos"]= Predicciones_Barr["Modelo AR Confirmados"].diff()
@@ -459,7 +633,7 @@ crecimiento.add_trace(go.Scatter(x=semana_num, y=semana_muertos,
                     name='Crecimiento semanal muertos'))
 crecimiento.update_layout(title="Crecimiento semanal por tipo de casos en Bogotá",
                  xaxis_title="Semana",yaxis_title="Número de casos",legend=dict(x=0,y=1,traceorder="normal"))
-crecimiento.fig.write_image("images/crecimiento_bog.png")
+crecimiento.write_image("images/crecimiento_bog.png")
 
 ##Se calcula las tasas de mortalidad y recuperación
 df_agrupado2_Bog["Tasa de mortalidad"]=(df_agrupado2_Bog["Muertos_acum"]/df_agrupado2_Bog["Confirmados_acum"])*100
@@ -689,180 +863,6 @@ df_agrupado2_Med.tail(10)
 ##Se presenta un resumen general acumulado del estado actual de casos
 
 print("Informacion General Medellín ")
-print("Número total de casos confirmados en Medellín: ",df_agrupado2_Med["Confirmados_acum"].iloc[-1])
-print("Número total de casos recuperados en Medellín: ",df_agrupado2_Med["Recuperados_acum"].iloc[-1])
-print("Número total de muertes en Medellín: ",df_agrupado2_Med["Muertos_acum"].iloc[-1])
-print("Número total de casos Activos en Medellín: ",df_agrupado2_Med["Activos_acum"].iloc[-1])
-print("Número aproximado de casos confirmados por día: ",np.round(df_agrupado2_Med["Confirmados_acum"].iloc[-1]/df_agrupado2_Med.shape[0]))
-print("Número aproximado de casos recuperados por día: ",np.round(df_agrupado2_Med["Recuperados_acum"].iloc[-1]/df_agrupado2_Med.shape[0]))
-print("Número aproximado de muertes por día: ",np.round(df_agrupado2_Med["Muertos_acum"].iloc[-1]/df_agrupado2_Med.shape[0]))
-print("Nuevos casos confirmados: ",df_agrupado2_Med["Confirmados_acum"].iloc[-1]-df_agrupado2_Med["Confirmados_acum"].iloc[-2])
-
-##Se grafica el comportamiento del crecimiento semanal por tipo de casos
-
-df_agrupado2_Med["Semana"]=df_agrupado2_Med.index.weekofyear
-
-semana_num=[]
-semana_confirmados=[]
-semana_recuperados=[]
-semana_muertos=[]
-w=1
-for i in list(df_agrupado2_Med["Semana"].unique()):
-    semana_confirmados.append(df_agrupado2_Med[df_agrupado2_Med["Semana"]==i]["Confirmados_acum"].iloc[-1])
-    semana_recuperados.append(df_agrupado2_Med[df_agrupado2_Med["Semana"]==i]["Recuperados_acum"].iloc[-1])
-    semana_muertos.append(df_agrupado2_Med[df_agrupado2_Med["Semana"]==i]["Muertos_acum"].iloc[-1])
-    semana_num.append(w)
-    w=w+1
-
-crecimiento=go.Figure()
-crecimiento.add_trace(go.Scatter(x=semana_num, y=semana_confirmados,
-                    mode='lines+markers',
-                    name='Crecimiento semanal casos confirmados'))
-crecimiento.add_trace(go.Scatter(x=semana_num, y=semana_recuperados,
-                    mode='lines+markers',
-                    name='Crecimiento semanal casos recuperados'))
-crecimiento.add_trace(go.Scatter(x=semana_num, y=semana_muertos,
-                    mode='lines+markers',
-                    name='Crecimiento semanal muertos'))
-crecimiento.update_layout(title="Crecimiento semanal por tipo de casos en Medellín",
-                 xaxis_title="Semana",yaxis_title="Número de casos",legend=dict(x=0,y=1,traceorder="normal"))
-crecimiento.write_image("images/crecimiento_med.png")
-
-##Se calcula las tasas de mortalidad y recuperación
-df_agrupado2_Med["Tasa de mortalidad"]=(df_agrupado2_Med["Muertos_acum"]/df_agrupado2_Med["Confirmados_acum"])*100
-df_agrupado2_Med["Tasa de recuperación"]=(df_agrupado2_Med["Recuperados_acum"]/df_agrupado2_Med["Confirmados_acum"])*100
-print("Tasa de mortalidad promedio",df_agrupado2_Med["Tasa de mortalidad"].mean())
-print("Tasa de recuperación promedio",df_agrupado2_Med["Tasa de recuperación"].mean())
-
-##Se grafica el comportamiento de las tasas
-Tasas = make_subplots(rows=2, cols=1,
-                   subplot_titles=("Tasa de recuperación", "Tasa de mortalidad"))
-Tasas.add_trace(
-    go.Scatter(x=df_agrupado2_Med.index, y=(df_agrupado2_Med["Recuperados_acum"]/df_agrupado2_Med["Confirmados_acum"])*100,name="Tasa de recuperación"),
-    row=1, col=1
-)
-Tasas.add_trace(
-    go.Scatter(x=df_agrupado2_Med.index, y=(df_agrupado2_Med["Muertos_acum"]/df_agrupado2_Med["Confirmados_acum"])*100,name="Tasa de mortalidad"),
-    row=2, col=1
-)
-Tasas.update_layout(height=1000,legend=dict(x=-0.1,y=1.2,traceorder="normal"))
-Tasas.update_xaxes(title_text="Fecha", row=1, col=1)
-Tasas.update_yaxes(title_text="tasa de recuperación", row=1, col=1)
-Tasas.update_xaxes(title_text="Fecha", row=1, col=2)
-Tasas.update_yaxes(title_text="Tasa de mortalidad", row=1, col=2)
-Tasas.show()
-
-##Se grafica el factor de crecimiento de los tipos de casos
-Factor_Crecimiento=go.Figure()
-Factor_Crecimiento.add_trace(go.Scatter(x=df_agrupado2_Med.index, y=df_agrupado2_Med["Confirmados"]/df_agrupado2_Med["Confirmados"].shift(),
-                    mode='lines',
-                    name='Factor de crecimiento casos confirmados'))
-Factor_Crecimiento.add_trace(go.Scatter(x=df_agrupado2_Med.index, y=df_agrupado2_Med["Recuperados"]/df_agrupado2_Med["Recuperados"].shift(),
-                    mode='lines',
-                    name='Factor de crecimiento casos recuperados'))
-Factor_Crecimiento.add_trace(go.Scatter(x=df_agrupado2_Med.index, y=df_agrupado2_Med["Muertos"]/df_agrupado2_Med["Muertos"].shift(),
-                    mode='lines',
-                    name='Factor de crecimiento muertes'))
-Factor_Crecimiento.update_layout(title="Factor de crecimiento casos confirmados, recuperados y muertes",
-                 xaxis_title="Fecha",yaxis_title="Factor de crecimiento",
-                 legend=dict(x=0,y=-0.4,traceorder="normal"))
-Factor_Crecimiento.write_image("images/Factor_Crecimiento_med.png")
-
-"""#Modelo de predicción AR para Medellín
-
-##Casos confirmados
-"""
-
-##Entrenamiento 
-model_train_Med_Con=df_agrupado2_Med.iloc[:int(df_agrupado2_Med.shape[0]*0.95)]
-valid_Med_Con=df_agrupado2_Med.iloc[int(df_agrupado2_Med.shape[0]*0.95):]
-y_pred_Med_Con=valid_Med_Con.copy()
-
-##Selección del modelo
-model_ar_Med_Con= auto_arima(model_train_Med_Con["Confirmados_acum"],trace=True, error_action='ignore', start_p=0,start_q=0,max_p=5,max_q=0,
-                   suppress_warnings=True,stepwise=False,seasonal=False)
-model_ar_Med_Con.fit(model_train_Med_Con["Confirmados_acum"])
-
-##Calculo predicción
-prediction_ar_Med_Con=model_ar_Med_Con.predict(len(valid_Med_Con))
-y_pred_Med_Con["AR Predicción"]=prediction_ar_Med_Con
-
-##Métrica RMSE
-model_scores_Med_Conf=[]
-model_scores_Med_Conf.append(np.sqrt(mean_squared_error(y_pred_Med_Con["Confirmados_acum"],y_pred_Med_Con["AR Predicción"])))
-print("RMSE para modelo AR: ",np.sqrt(mean_squared_error(y_pred_Med_Con["Confirmados_acum"],y_pred_Med_Con["AR Predicción"])))
-
-##Graficando el modelo para los confirmados
-Confirmados_Med=go.Figure()
-Confirmados_Med.add_trace(go.Scatter(x=model_train_Med_Con.index, y=model_train_Med_Con["Confirmados_acum"],
-                    mode='lines+markers',name="Datos de entrenamiento para casos confirmados"))
-Confirmados_Med.add_trace(go.Scatter(x=valid_Med_Con.index, y=valid_Med_Con["Confirmados_acum"],
-                    mode='lines+markers',name="Datos de Validación para casos confirmados",))
-Confirmados_Med.add_trace(go.Scatter(x=valid_Med_Con.index, y=y_pred_Med_Con["AR Predicción"],
-                    mode='lines+markers',name="Predicción de casos confirmados",))
-Confirmados_Med.update_layout(title="Predicción casos confirmados modelo AR",
-                 xaxis_title="Fecha",yaxis_title="Casos  confirmados",legend=dict(x=0,y=1,traceorder="normal"))
-Confirmados_Med.write_image("images/Confirmados_Med.png")
-
-#Crea datos de predicción a 30 días
-nuevo_dia=[]
-Prediccion_AR_Med_Con=[]
-for i in range(1,30):
-    nuevo_dia.append(df_agrupado2_Med.index[-1]+timedelta(days=i))
-    Prediccion_AR_Med_Con.append(model_ar_Med_Con.predict(len(valid_Med_Con)+i)[-1])
-
-"""##Casos recuperados"""
-
-##Se debe considerar que se observan retrasos en el reporte de casos al mostrar de forma consecutiva 0 recuperados y 0 muertes, teniendo en cuenta que aún hay casos activos en la región y que los casos no permanecen activos indefinidamente 
-##Entrenamiento
-model_train_Med_recu=df_agrupado2_Med.iloc[:int(df_agrupado2_Med.shape[0]*0.95)]
-valid_Med_recu=df_agrupado2_Med.iloc[int(df_agrupado2_Med.shape[0]*0.95):]
-y_pred_Med_recu=valid_Med_recu.copy()
-
-##Selección
-model_ar_Med_recu= auto_arima(model_train_Med_recu["Recuperados"],trace=True, error_action='ignore', start_p=0,start_q=0,max_p=7,max_q=0,
-                   suppress_warnings=True,stepwise=False,seasonal=False)
-model_ar_Med_recu.fit(model_train_Med_recu["Recuperados"])
-
-##Predicción
-prediction_ar_Med_recu=model_ar_Med_recu.predict(len(valid_Med_recu))
-y_pred_Med_recu["AR Predicción"]=prediction_ar_Med_recu
-
-#Métrica RMSE
-model_scores_Med_recu=[]
-model_scores_Med_recu.append(np.sqrt(mean_squared_error(y_pred_Med_recu["Recuperados"],y_pred_Med_recu["AR Predicción"])))
-print("RMSE para modelo AR: ",np.sqrt(mean_squared_error(y_pred_Med_recu["Recuperados"],y_pred_Med_recu["AR Predicción"])))
-
-##Graficando el modelo para los recuperados
-Recuperados_Med=go.Figure()
-Recuperados_Med.add_trace(go.Scatter(x=model_train_Med_recu.index, y=model_train_Med_recu["Recuperados"],
-                    mode='lines+markers',name="Datos de entrenamiento para casos recuperados"))
-Recuperados_Med.add_trace(go.Scatter(x=valid_Med_recu.index, y=valid_Med_recu["Recuperados"],
-                    mode='lines+markers',name="Datos de Validación para casos recuperados",))
-Recuperados_Med.add_trace(go.Scatter(x=valid_Med_recu.index, y=y_pred_Med_recu["AR Predicción"],
-                    mode='lines+markers',name="Predicción de casos recuperados",))
-Recuperados_Med.update_layout(title="Predicción casos recuperados modelo AR",
-                 xaxis_title="Fecha",yaxis_title="Casos  recuperados",legend=dict(x=0,y=1,traceorder="normal"))
-Recuperados_Med.write_image("images/Recuperados_Med.png")
-
-#Crea datos de predicción a 30 días
-Prediccion_AR_Med_recu=[]
-for i in range(1,30):
-    Prediccion_AR_Med_recu.append(model_ar_Med_recu.predict(len(valid_Med_recu)+i)[-1])
-
-"""##Muertes"""
-
-##Entrenamiento
-model_train_Med_M=df_agrupado2_Med.iloc[:int(df_agrupado2_Med.shape[0]*0.90)]
-valid_Med_M=df_agrupado2_Med.iloc[int(df_agrupado2_Med.shape[0]*0.90):]
-y_pred_Med_M=valid_Med_M.copy()
-
-##Selección
-model_sarima_Med_M= auto_arima(model_train_Med_M["Muertos"],trace=True, error_action='ignore', 
-                         start_p=0,start_q=0,max_p=2,max_q=2,m=9,
-                   suppress_warnings=True,stepwise=True,seasonal=True)
-model_sarima_Med_M.fit(model_train_Med_M["Muertos"])
-
 #Predicción
 prediction_sarima_Med_M=model_sarima_Med_M.predict(len(valid_Med_M))
 y_pred_Med_M["SARIMA Model Prediction"]=prediction_sarima_Med_M

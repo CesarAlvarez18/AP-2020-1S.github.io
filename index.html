@@ -1,77 +1,103 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title>Ejemplo de un Dashboard</title>
+<style>
+div.gallery {
+  border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px) {
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .responsive {
+    width: 100%;
+  }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
 </head>
 <body>
 
     <center>
         <h1>Pronostico de la evolución de casos activos de SARS-CoV-2 en Colombia</h1>
     </center>
-    
-
-    <p>Esta es una demostaacion de la creacion de un Dashboard estatico en GitHub Pages</p>
-
-    <h2>Cantidad de articulos publicados por ano</h2>
-  
-    <center>
-        <img src="images/fig4.png">
-    </center>
-    
-    
 	
-	<p>Click the button to create a TABLE, a TR and a TD element.</p>
-
-<button onclick="myFunction()">Try it</button>
-
-<script>
-function myFunction() {
-  var x = document.createElement("TABLE");
-  x.setAttribute("id", "myTable");
-  document.body.appendChild(x);
-
-  var y = document.createElement("TR");
-  y.setAttribute("id", "myTr");
-  document.getElementById("myTable").appendChild(y);
-
-  var z = document.createElement("TD");
-  var t = document.createTextNode("cell");
-  z.appendChild(t);
-  document.getElementById("myTr").appendChild(z);
-}
-</script>
-
-	
-	
-	
-
-    <h2>Articulos mas citados</h2>
-
-    <ul>
-        
-        <li> Ayala, G., Agudelo, A., Vargas, R.Effect of glycerol on the electrical properties and phase behavior of cassava starch biopolymers [Efecto del glicerol sobre las propiedades eléctricas y comportamiento de fase en biopolímeros de almidón de yuca];2012,27 </li>
-        
-        <li> Cabral, P., Zamyatin, A.Markov processes in modeling land use and land cover changes in Sintra-Cascais, Portugal [Procesos de markov en la modelización de alteraciones del uso e ocupación del suelo en Sintra-Cascais, Portugal];2009,24 </li>
-        
-        <li> Rojas, D., Cipriano, A.Model based predictive control of a rougher flotation circuit considering grade estimation in intermediate cells [Control predictivo de un circuito de flotación rougher considerando estimación de leyes en celdas intermedias];2011,22 </li>
-        
-        <li> Alcocer, W., Vela, L., Blanco, A., Gonzalez, J., Oliver, M.Major trends in the development of ankle rehabilitation devices [Principales tendencias en el desarrollo de dispositivos de rehabilitacion para tobillo];2012,21 </li>
-        
-        <li> Parra, E.R., Arango, P.J.A., Palacio, V.J.B.XPS structure analysis of TiN/TiC bilayers produced by pulsed vacuum arc discharge [Análisis estructural de bicapas de TiN/TiC producidas por descargas pulsadas por arco en vacío];2010,17 </li>
-        
-        <li> Montoya, F.G., Manzano-Agugliaro, F., López, J.G., Alguacil, P.S.Power quality research techniques: Advantages and disadvantages [Técnicas de Investigación en Calidad Eléctrica: Ventajas e Inconvenientes];2012,17 </li>
-        
-        <li> González-Feliu, J., Cedillo-Campo, M.G., García-Alcaraz, J.L.An emission model as an alternative to O-D matrix in urban goods transport modeling [Un modelo de emisión como una alternativa a la generación de matrices O-D para modelar el transporte urbano de carga];2014,17 </li>
-        
-        <li> Jiménez, A.R., Diazgranados, J.A., AMorantes, M.T.A.Electricity generation and wind potential assessment in regions of Colombia [Generación eléctrica y evaluación del potencial de energía eólica en regiones de Colombia];2012,17 </li>
-        
-        <li> Pozo-Antonio, S., Puente-Luna, I., Lagüela-López, S., Veiga-Ríos, M.Techniques to correct and prevent acid mine drainage: A review [Técnicas correctoras y preventivas de las aguas ácidas de mina: Una revision];2014,16 </li>
-        
-        <li> Avelar-Sosa, L., García-Alcaraz, J.L., Cedillo-Campos, M.G., Adarme-Jaimes, W.Effects of regional infrastructure and offered services in the supply chains performance: Case ciudad Juarez [Efectos de la infraestructura regional y los servicios en el desempeño de la cadena de suministro: Caso ciudad juárez];2014,16 </li>
-        
-    </ul>
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="images/Confirmados_Barr.png">
+      <img src="images/Confirmados_Barr.png" alt="Cinque Terre" width="600" height="400">
+    </a>
+    <div class="desc">Add a description of the image here</div>
+  </div>
+</div>
 
 
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="images/Muertes_Barr.png">
+      <img src="images/Muertes_Barr.png" alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">Add a description of the image here</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="images/Recuperados_Barr.png.png">
+      <img src="images/Confirmados_Barr.png" alt="Northern Lights" width="600" height="400">
+    </a>
+    <div class="desc">Add a description of the image here</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="images/fig4.png">
+      <img src="images/fig4.png" alt="Mountains" width="600" height="400">
+    </a>
+    <div class="desc">Add a description of the image here</div>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="padding:6px;">
+  <p>El objetivo de este proyecto es la predicción de corto y mediano plazo de el total de casos confirmados, los nuevos casos, los casos activos, recuperados y muertes para las 5 principales ciudades de Colombia, utilizando técnicas estadísticas, de inteligencia artificial o modelos híbridos.</p>
+</div>
 
 </body>
 </html>

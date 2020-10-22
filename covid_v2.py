@@ -13,7 +13,7 @@ El nuevo Coronavirus (COVID-19) ha sido catalogado por la Organización Mundial 
 Con el aumento de casos activos en Colombia, se pretende genenerar una herramienta de reporte que permita visualizar predicciones en el corto y mediano plazo del total de casos confirmados, nuevos casos, casos activos, recuperados y muertes para las cinco principales ciudades de Colombia, utilizando técnicas estadísticas, de inteligencia artificial o modelos híbridos.
 """
 
-#pip install sodapy
+#Python 3.5.6 :: Anaconda, Inc.
 
 """### Importar librerias"""
 
